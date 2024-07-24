@@ -20,9 +20,6 @@
         <div class="card border border-light-subtle rounded-3 shadow-sm mt-5">
           <div class="card-body p-3 p-md-4 p-xl-5">
             <div class="text-center mb-3">
-              <!-- <a href="#!">
-                <img src="https://www.itsolutionstuff.com/assets/images/footer-logo-2.png" alt="BootstrapBrain Logo" width="250">
-              </a> -->
             </div>
             <h1 class="text-center text-primary mb-4">LOGIN</h1>
             <form method="POST" action="{{ route('login.post') }}">

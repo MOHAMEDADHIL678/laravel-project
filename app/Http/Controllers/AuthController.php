@@ -26,8 +26,8 @@ class AuthController extends Controller
     public function postLogin(Request $request): RedirectResponse
     {
         $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
    
         $credentials = $request->only('email', 'password');
@@ -36,13 +36,13 @@ class AuthController extends Controller
                         ->withSuccess('You have Successfully logged in');
         }
   
-        return redirect("login")->withError('Opps! You have entered invalid credentials');
+        return redirect("login")->withError('You have entered invalid credentials');
     }
       
     public function postRegistration(Request $request): RedirectResponse
     {  
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);

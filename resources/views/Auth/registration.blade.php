@@ -19,11 +19,7 @@
       <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
         <div class="card border border-light-subtle rounded-3 shadow-sm">
           <div class="card-body p-3 p-md-4 p-xl-5">
-            <!-- <div class="text-center mb-3">
-              <a href="#!">
-                <img src="https://www.itsolutionstuff.com/assets/images/footer-logo-2.png" alt="BootstrapBrain Logo" width="250">
-              </a>
-            </div> -->
+
             <h2 class="text-center text-primary mb-4">REGISTER</h2>
             <form method="POST" action="{{ route('register.post') }}">
               @csrf

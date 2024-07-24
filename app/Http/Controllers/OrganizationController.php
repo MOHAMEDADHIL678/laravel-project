@@ -37,7 +37,7 @@ class OrganizationController extends Controller
             'city' => 'required|string|max:255',
             'state' => 'nullable|string|max:255',
             'country' => 'nullable|string|max:255',
-            'postalcode' => 'nullable|string|max:255',
+            'postalcode' => 'nullable|number|max:255',
 
         ]);
 

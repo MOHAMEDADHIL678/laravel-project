@@ -59,8 +59,8 @@
                             <input type="text" id="country" name="country" class="form-control" value="{{ $organization->country }}">
                         </div>
                         <div class="col-md-6">
-                            <label for="po" class="form-label">Postal Code:</label>
-                            <input type="text" id="po" name="po" class="form-control" value="{{ $organization->postalcode }}">
+                            <label for="postalcode" class="form-label">Postal Code:</label>
+                            <input type="number" id="postalcode" name="postalcode" class="form-control" value="{{ $organization->postalcode }}">
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
