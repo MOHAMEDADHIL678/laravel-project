@@ -42,9 +42,9 @@ class AuthController extends Controller
     public function postRegistration(Request $request): RedirectResponse
     {  
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|alpha:ascii',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $data = $request->all();

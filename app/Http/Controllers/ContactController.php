@@ -38,16 +38,17 @@ class ContactController extends Controller
             'organization_id' => 'required|exists:organizations,id',
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'nullable|string|max:255',
+            'city' => 'required|alpha:ascii|max:255',
+            'state' => 'nullable|alpha:ascii|max:255',
         ]);
 
         
         // dd($data);
 
         $contact = Contact::create($request->all());
+        $organization = Organization::findOrFail($request->input('organization_id'));
 
-        return redirect()->route('contacts.create')->with('success', 'Contact created successfully.');
+        return redirect()->route('organizations.edit', $organization->id)->with('success', 'Contact created successfully.');
     }
 
 
@@ -78,14 +79,14 @@ class ContactController extends Controller
             'organization_id' => 'required|exists:organizations,id',
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'state' => 'nullable|string|max:255',
+            'city' => 'nullable|alpha:ascii|max:255',
+            'state' => 'nullable|alpha:ascii|max:255',
         ]);
 
         $contact = Contact::findOrFail($id);
         $contact->update($request->all());
 
-        return redirect()->route('contacts.create')->with('success', 'Contact updated successfully.');
+        return redirect()->route('organizations.index')->with('success', 'Contact updated successfully.');
     }
 
     /**
