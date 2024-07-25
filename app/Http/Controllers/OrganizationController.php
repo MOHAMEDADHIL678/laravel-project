@@ -32,7 +32,7 @@ class OrganizationController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:255',
+            'phone' => 'nullable|number|max:255',
             'address' => 'nullable|string|max:255',
             'city' => 'required|alpha:ascii|max:255',
             'state' => 'nullable|alpha:ascii|max:255',
@@ -63,7 +63,7 @@ class OrganizationController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:255',
+            'phone' => 'nullable|number|max:255',
             'address' => 'nullable|string|max:255',
             'city' => 'required|alpha:ascii|max:255',
             'state' => 'nullable|alpha:ascii|max:255',
