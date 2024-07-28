@@ -38,12 +38,13 @@ class OrganizationController extends Controller
             'city' => 'required|regex:/^[\pL\s]+$/u|max:255',
             'state' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
             'country' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
-            'postalcode' => 'nullable|numeric',
+            'postalcode' => 'nullable|digits_between:5,10',
 
         ], [
-            'city.regex' => 'The city field must only contain letters and spaces.',
-            'state.regex' => 'The state field must only contain letters and spaces.',
-            'country.regex' => 'The country field must only contain letters and spaces.',
+            'city.regex' => 'The city field must only contain letters.',
+            'state.regex' => 'The state field must only contain letters .',
+            'country.regex' => 'The country field must only contain letters.',
+            'postalcode.digits_between' => 'The postal code must be between 5 and 10 digits.',
         ]);
 
         Organization::create($request->all());
@@ -73,11 +74,12 @@ class OrganizationController extends Controller
             'city' => 'required|regex:/^[\pL\s]+$/u|max:255',
             'state' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
             'country' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
-            'postalcode' => 'nullable|numeric',
+            'postalcode' => 'nullable|digits_between:5,10',
         ], [
-            'city.regex' => 'The city field must only contain letters and spaces.',
-            'state.regex' => 'The state field must only contain letters and spaces.',
-            'country.regex' => 'The country field must only contain letters and spaces.',
+            'city.regex' => 'The city field must only contain letters.',
+            'state.regex' => 'The state field must only contain letters.',
+            'country.regex' => 'The country field must only contain letters.',
+            'postalcode.digits_between' => 'The postal code must be between 5 and 10 digits.',
         ]);
 
         $organization->update($request->all());
