@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
+
 class OrganizationController extends Controller
 {
     /**
@@ -32,13 +33,17 @@ class OrganizationController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|number|max:255',
+            'phone' => 'nullable|numeric|min:10',
             'address' => 'nullable|string|max:255',
-            'city' => 'required|alpha:ascii|max:255',
-            'state' => 'nullable|alpha:ascii|max:255',
-            'country' => 'nullable|alpha:ascii|max:255',
-            'postalcode' => 'nullable|number|max:255',
+            'city' => 'required|regex:/^[\pL\s]+$/u|max:255',
+            'state' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
+            'country' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
+            'postalcode' => 'nullable|numeric',
 
+        ], [
+            'city.regex' => 'The city field must only contain letters and spaces.',
+            'state.regex' => 'The state field must only contain letters and spaces.',
+            'country.regex' => 'The country field must only contain letters and spaces.',
         ]);
 
         Organization::create($request->all());
@@ -63,12 +68,16 @@ class OrganizationController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|number|max:255',
+            'phone' => 'nullable|numeric|min:10',
             'address' => 'nullable|string|max:255',
-            'city' => 'required|alpha:ascii|max:255',
-            'state' => 'nullable|alpha:ascii|max:255',
-            'country' => 'nullable|alpha:ascii|max:255',
-            'postalcode' => 'nullable|number|max:255',
+            'city' => 'required|regex:/^[\pL\s]+$/u|max:255',
+            'state' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
+            'country' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
+            'postalcode' => 'nullable|numeric',
+        ], [
+            'city.regex' => 'The city field must only contain letters and spaces.',
+            'state.regex' => 'The state field must only contain letters and spaces.',
+            'country.regex' => 'The country field must only contain letters and spaces.',
         ]);
 
         $organization->update($request->all());

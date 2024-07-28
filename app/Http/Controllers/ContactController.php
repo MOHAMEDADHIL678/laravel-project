@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\Organization;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -13,6 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $contacts = Contact::with('organization')->paginate(10);
         return view('contacts.index', compact('contacts'));
     }
@@ -22,6 +25,7 @@ class ContactController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
         $organizations = Organization::all();
         return view('contacts.create', compact('organizations'));
     }
@@ -33,14 +37,19 @@ class ContactController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
+            'firstname' => 'required|alpha:ascii|max:255',
+            'lastname' => 'required|alpha:ascii|max:255',
             'organization_id' => 'required|exists:organizations,id',
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
-            'city' => 'required|alpha:ascii|max:255',
-            'state' => 'nullable|alpha:ascii|max:255',
+            'city' => 'required|regex:/^[\pL\s]+$/u|max:255',
+            'state' => 'nullable|regex:/^[\pL\s]+$/ui|max:255',
+        ], [
+            'city.regex' => 'The city field must only contain letters and spaces.',
+            'state.regex' => 'The state field must only contain letters and spaces.',
         ]);
+
+        $user = Auth::user();
 
         
         // dd($data);
@@ -58,7 +67,7 @@ class ContactController extends Controller
      */
     public function edit(string $id)
     {
-
+        $user = Auth::user();
         $contact = Contact::findOrFail($id);
         $organizations = Organization::all();
         return view('contacts.edit', compact('contact', 'organizations'));
@@ -74,15 +83,19 @@ class ContactController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
+            'firstname' => 'required|alpha:ascii|max:255',
+            'lastname' => 'required|alpha:ascii|max:255',
             'organization_id' => 'required|exists:organizations,id',
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
-            'city' => 'nullable|alpha:ascii|max:255',
-            'state' => 'nullable|alpha:ascii|max:255',
+            'city' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
+            'state' => 'nullable|regex:/^[\pL\s]+$/u|max:255',
+        ], [
+            'city.regex' => 'The city field must only contain letters and spaces.',
+            'state.regex' => 'The state field must only contain letters and spaces.',
         ]);
 
+        $user = Auth::user();
         $contact = Contact::findOrFail($id);
         $contact->update($request->all());
 
@@ -94,6 +107,7 @@ class ContactController extends Controller
      */
     public function destroy(string $id)
     {
+        $user = Auth::user();
         // $organization = Organization::findOrFail($id);
         $contact = Contact::findOrFail($id);
         $contact->delete();

@@ -2,6 +2,30 @@
 
 return [
 
+
+
+    'middleware' => [
+    // Global middleware (run on every request)
+    'web' => [
+        // other middleware...
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+    'api' => [
+        'throttle:api',
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+],
+
+'routeMiddleware' => [
+    // other middleware...
+    'auth' => \App\Http\Middleware\Authenticate::class,
+    'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+],
+
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 @include('layout.sidebar')
@@ -45,9 +44,12 @@
                     <div class="col-md-6">
                         <label for="profile_picture">Profile Picture:</label>
                         <input type="file" name="profile_picture" id="profile_picture" class="form-control">
-                        @if ($user->profile_picture)
-                            <img src="{{ Storage::url($user->profile_picture) }}" alt="Profile Picture" width="100">
+                        @if (auth()->user()->profile_picture)
+                            <img src="{{ Storage::url(auth()->user()->profile_picture) }}" alt="Profile Picture" class="rounded-full" width="50">
+                        @else
+                            <img src="{{ asset('images/Default_pfp.jpg') }}" alt="Profile Picture" class="rounded-full" width="50">
                         @endif
+
                     </div>
                 </div>
                 <div class="d-flex justify-center pt-4">
@@ -64,9 +66,5 @@
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

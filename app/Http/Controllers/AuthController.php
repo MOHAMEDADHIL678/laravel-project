@@ -31,6 +31,13 @@ class AuthController extends Controller
         ]);
    
         $credentials = $request->only('email', 'password');
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (!$user) {
+            return redirect("login")->withError('You are not registered.');
+        }
+    
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard')
                         ->withSuccess('You have Successfully logged in');
@@ -42,7 +49,7 @@ class AuthController extends Controller
     public function postRegistration(Request $request): RedirectResponse
     {  
         $request->validate([
-            'name' => 'required|alpha:ascii',
+            'name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
